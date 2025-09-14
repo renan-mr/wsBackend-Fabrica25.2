@@ -1,135 +1,126 @@
-API Dog - Gerenciador de Cães Favoritos
-Uma API RESTful construída com Django e Django REST Framework que consome a dog.api para obter informações sobre raças de cães e permite que os usuários gerenciem uma lista local de pessoas e seus cães favoritos.
+# 🐶 API Dog - Gerenciador de Cães Favoritos
 
-Funcionalidades
-CRUD de Pessoas: Crie, visualize, atualize e delete registros de pessoas.
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-4.x-darkgreen.svg?logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/DRF-REST%20Framework-red.svg)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-316192.svg?logo=postgresql&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-CRUD de Cães Favoritos: Crie, visualize, atualize e delete registros de cães favoritos, associando cada um a uma pessoa.
+---
 
-Integração Externa: Endpoint para listar todas as raças de cães diretamente da dog.api.
+## 📌 Sobre o Projeto
+Uma **API RESTful** construída com **Django** e **Django REST Framework** que consome a [dog.api](https://dog.ceo/dog-api/) para obter informações sobre raças de cães e permite que os usuários gerenciem uma lista local de **pessoas e seus cães favoritos**.
 
-Banco de Dados Robusto: Utiliza PostgreSQL para armazenamento de dados.
+---
 
-API Amigável: O serializer foi customizado para exibir o nome da pessoa associada ao cão favorito, em vez de apenas o seu ID.
+## 🚀 Funcionalidades
+- 👤 **CRUD de Pessoas**: Crie, visualize, atualize e delete registros de pessoas.  
+- 🐕 **CRUD de Cães Favoritos**: Associe cães favoritos a pessoas.  
+- 🌐 **Integração Externa**: Endpoint para listar todas as raças diretamente da `dog.api`.  
+- 💾 **Banco de Dados Robusto**: Utiliza **PostgreSQL**.  
+- 🎯 **API Amigável**: Serializers customizados exibem o nome da pessoa associada ao cão favorito.  
 
-Tecnologias Utilizadas
-Python 3.8+
+---
 
-Django
+## 🛠 Tecnologias Utilizadas
+- Python 3.8+  
+- Django  
+- Django REST Framework  
+- PostgreSQL  
+- psycopg2-binary  
 
-Django REST Framework
+---
 
-PostgreSQL
+## ⚙️ Configuração do Ambiente Local
 
-psycopg2-binary
+### 1. Pré-requisitos
+- Python 3.8+  
+- PostgreSQL rodando localmente  
 
-Configuração do Ambiente Local
-Siga os passos abaixo para rodar o projeto na sua máquina.
+### 2. Clone o Repositório
+git clone https://github.com/renan-mr/wsBackend-Fabrica25.2  
+cd Projeto_dog  
 
-1. Pré-requisitos
-Python 3.8 ou superior instalado.
+### 3. Crie e Ative o Ambiente Virtual
+Windows:  
+python -m venv venv  
+venv\Scripts\activate  
 
-PostgreSQL instalado e rodando na sua máquina.
+Linux / macOS:  
+python -m venv venv  
+source venv/bin/activate  
 
-2. Clone o Repositório
-git clone https://github.com/renan-mr/wsBackend-Fabrica25.2
-cd Projeto_dog
+### 4. Instale as Dependências
+pip install -r requirements.txt  
 
+### 5. Configure o Banco de Dados
+Crie um banco de dados vazio no PostgreSQL (ex: api_dog_db).  
+Edite o arquivo `.env` (ou `settings.py`) com suas credenciais:  
 
-3. Crie e Ative o Ambiente Virtual
-# Windows
-python -m venv venv
-venv\Scripts\activate
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.postgresql',  
+        'NAME': 'api_dog_db',  
+        'USER': 'seu_usuario_postgres',  
+        'PASSWORD': 'sua_senha_postgres',  
+        'HOST': 'localhost',  
+        'PORT': '5432',  
+    }  
+}  
 
-# Linux / macOS
-python -m venv venv
-source venv/bin/activate
+### 6. Aplique as Migrações
+python manage.py migrate  
 
+### 7. Inicie o Servidor
+python manage.py runserver  
 
-4. Instale as Dependências
-Este projeto utiliza um arquivo requirements.txt para gerenciar as dependências.
+A API estará disponível em:  
+👉 http://127.0.0.1:8000/  
 
-pip install -r requirements.txt
+---
 
+## 📡 Endpoints da API
 
-5. Configure o Banco de Dados
-a. Crie um banco de dados vazio no seu PostgreSQL (ex: api_dog_db).
+Base URL:  
+http://127.0.0.1:8000/api_dog/  
 
-b. Renomeie o arquivo .env.example para .env (ou configure diretamente o settings.py para desenvolvimento).
+### 👤 Pessoas
+- GET /pessoas/ → Lista todas as pessoas  
+- POST /pessoas/ → Cria uma nova pessoa  
+- GET /pessoas/{id}/ → Detalhes de uma pessoa  
+- PUT /pessoas/{id}/ → Atualiza dados  
+- DELETE /pessoas/{id}/ → Remove pessoa  
 
-c. Edite o settings.py com as suas credenciais do PostgreSQL:
+Exemplo de POST:  
+{  
+  "nome": "João da Silva",  
+  "email": "joao.silva@example.com"  
+}  
 
-# Projeto_dog/settings.py
+---
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'api_dog_db',
-        'USER': 'seu_usuario_postgres',
-        'PASSWORD': 'sua_senha_postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+### 🐕 Cães Favoritos
+- GET /favorites/ → Lista todos os cães favoritos  
+- POST /favorites/ → Adiciona um cão favorito  
+- GET /favorites/{id}/ → Detalhes de um cão favorito  
+- PUT /favorites/{id}/ → Atualiza um cão favorito  
+- DELETE /favorites/{id}/ → Remove cão favorito  
 
+Exemplo de POST:  
+{  
+  "id_raca": "a82d1c6a-04b3-4b6a-9f0c-2b2a1c1d1e1f",  
+  "nome": "Pug",  
+  "descricao": "Uma raça muito dócil e companheira.",  
+  "notas": "Pesquisar sobre cuidados com a respiração.",  
+  "pessoa_id": 1  
+}  
 
-6. Aplique as Migrações
-Este comando criará todas as tabelas necessárias no seu banco de dados.
+ℹ️ O campo pessoa_id deve conter o ID de uma pessoa já existente.  
 
-python manage.py migrate
+---
 
+### 🌐 Raças (API Externa)
+- GET /raca/ → Lista todas as raças de cães disponíveis na dog.api  
 
-7. Inicie o Servidor
-python manage.py runserver
+---
 
-
-A API estará disponível em http://127.0.0.1:8000/.
-
-Como Usar a API (Endpoints)
-A base de todas as URLs da API é http://127.0.0.1:8000/api_dog/.
-
-Pessoas
-GET /api_dog/pessoas/ - Lista todas as pessoas.
-
-POST /api_dog/pessoas/ - Cria uma nova pessoa.
-
-GET /api_dog/pessoas/{id}/ - Obtém detalhes de uma pessoa.
-
-PUT /api_dog/pessoas/{id}/ - Atualiza os dados de uma pessoa.
-
-DELETE /api_dog/pessoas/{id}/ - Deleta uma pessoa.
-
-Exemplo de corpo (Body) para POST:
-
-{
-    "nome": "João da Silva",
-    "email": "joao.silva@example.com"
-}
-
-
-Cães Favoritos
-GET /api_dog/favorites/ - Lista todos os cães favoritos.
-
-POST /api_dog/favorites/ - Adiciona um novo cão favorito.
-
-GET /api_dog/favorites/{id}/ - Obtém detalhes de um favorito.
-
-PUT /api_dog/favorites/{id}/ - Atualiza um favorito.
-
-DELETE /api_dog/favorites/{id}/ - Deleta um favorito.
-
-Exemplo de corpo (Body) para POST:
-
-{
-    "id_raca": "a82d1c6a-04b3-4b6a-9f0c-2b2a1c1d1e1f",
-    "nome": "Pug",
-    "descricao": "Uma raça muito dócil e companheira.",
-    "notas": "Pesquisar sobre cuidados com a respiração.",
-    "pessoa_id": 1
-}
-
-
-Nota: O campo pessoa_id deve conter o id de uma pessoa já existente no banco de dados.
-
-Raças (API Externa)
-GET /api_dog/raca/ - Lista todas as raças de cães disponíveis na dog.api.
